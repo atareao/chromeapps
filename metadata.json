@@ -1,0 +1,11 @@
+{"description": "A manager for the touchpad",
+ "name": "Clipman",
+ "shell-version": ["3.26", "3.28"],
+ "url": "https://www.atareao.es/aplicacion/clipman",
+ "uuid": "clipman@atareao.es",
+ "version": 1,
+ "gettext-domain": "clipman@atareao.es",
+ "settings-schema": "es.atareao.clipman",
+ "autor": "Lorenzo Carbonell",
+ "copyright": "2.018"
+}
