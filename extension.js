@@ -172,13 +172,13 @@ class ChromeApps extends PanelMenu.Button{
     _get_help(){
         let menu_help = new PopupMenu.PopupSubMenuMenuItem(_('Help'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Project Page'), 'github', 'https://github.com/atareao/Touchpad-Indicator'));
+            _('Project Page'), 'gnome', 'https://gitlab.gnome.org/atareao/cromeapps'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Get help online...'), 'help-online', 'https://www.atareao.es/aplicacion/touchpad-indicator-para-ubuntu/'));
+            _('Get help online...'), 'help-online', 'https://www.atareao.es/aplicacion/chromeapps/'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Translate this application...'), 'translate', 'https://translations.launchpad.net/touchpad-indicator'));
+            _('Translate this application...'), 'translate', 'https://translations.launchpad.net/cromeapps'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Report a bug...'), 'bug', 'https://github.com/atareao/Touchpad-Indicator/issues'));
+            _('Report a issue...'), 'bug', 'https://gitlab.gnome.org/atareao/cromeapps/issues'));
         menu_help.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         menu_help.menu.addMenuItem(this._create_help_menu_item(
             _('El atareao'), 'web', 'https://www.atareao.es'));
