@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: touchpad-manager@atareao.es \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-25 11:09+0100\n"
+"POT-Creation-Date: 2018-12-27 06:59+0100\n"
 "PO-Revision-Date: 2018-03-28 18:43+0200\n"
 "Last-Translator: Lorenzo <lorenzo.carbonell.cerezo@gmail.com>\n"
 "Language-Team: Spanish\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: schemas/es.atareao.clipman.gschema.xml:6
+#: schemas/es.atareao.chromeapps.gschema.xml:6
 msgid "Number of columns"
 msgstr ""
 
-#: schemas/es.atareao.clipman.gschema.xml:7
+#: schemas/es.atareao.chromeapps.gschema.xml:7
 msgid "Number of columns per tab"
 msgstr ""
 
@@ -46,7 +46,8 @@ msgid "Translate this application..."
 msgstr "Traduce la aplicación..."
 
 #: extension.js:181
-msgid "Report a bug..."
+#, fuzzy
+msgid "Report a issue..."
 msgstr "Informa de un error..."
 
 #: extension.js:184
@@ -138,14 +139,6 @@ msgid ""
 msgstr ""
 "junto con este programa. Si no, vea <a href=\"https://www.gnu.org/licenses/"
 "\">https://www.gnu.org/licenses/</a>."
-
-#: prefs.js:94
-msgid "Preferences"
-msgstr ""
-
-#: prefs.js:98
-msgid "Options"
-msgstr ""
 
 #: prefs.js:104
 msgid "About"
