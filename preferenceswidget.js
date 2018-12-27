@@ -648,7 +648,7 @@ var Section = new Lang.Class({
         let range = key.get_range().deep_unpack()[0];
         let type = key.get_value_type().dup_string();
         type = (range !== "type") ? range : type;
-
+        global.log('RRR: ' + type);
         if (widget !== undefined) {
             widget = new widget(settings, keyName);
         } else if (type === "b") {
@@ -668,7 +668,7 @@ var Section = new Lang.Class({
         } else {
             widget = new OtherSetting(settings, keyName);
         }
-
+        global.log('RRR: ' + widget);
         return this.addSetting(
             key.get_summary(),
             key.get_description(),

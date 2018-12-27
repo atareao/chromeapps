@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: touchpad-manager@atareao.es \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-30 10:22+0200\n"
+"POT-Creation-Date: 2018-12-25 11:09+0100\n"
 "PO-Revision-Date: 2018-03-28 18:43+0200\n"
 "Last-Translator: Lorenzo <lorenzo.carbonell.cerezo@gmail.com>\n"
 "Language-Team: Spanish\n"
@@ -17,64 +17,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: extension.js:93
-msgid "Touchpad status"
-msgstr "Estado del panel táctil"
+#: schemas/es.atareao.clipman.gschema.xml:6
+msgid "Number of columns"
+msgstr ""
 
-#: extension.js:95 extension.js:101
-msgid "Disable touchpad"
-msgstr "Inhabilita el panel táctil"
+#: schemas/es.atareao.clipman.gschema.xml:7
+msgid "Number of columns per tab"
+msgstr ""
 
-#: extension.js:103 schemas/es.atareao.touchpad-manager.gschema.xml:66
-#: schemas/es.atareao.touchpad-manager.gschema.xml:67
-msgid "Touchpad enabled"
-msgstr "Panel táctil activado"
-
-#: extension.js:106
-msgid "Enable touchpad"
-msgstr "Habilita el panel táctil"
-
-#: extension.js:108
-msgid "Touchpad disabled"
-msgstr "Panel táctil inhabilitado"
-
-#: extension.js:112
+#: extension.js:153
 msgid "Settings"
 msgstr "Configuración"
 
-#: extension.js:131
+#: extension.js:173
 msgid "Help"
 msgstr "Ayuda"
 
-#: extension.js:133
+#: extension.js:175
 msgid "Project Page"
 msgstr "Página del proyecto"
 
-#: extension.js:135
+#: extension.js:177
 msgid "Get help online..."
 msgstr "Ayuda en línea..."
 
-#: extension.js:137
+#: extension.js:179
 msgid "Translate this application..."
 msgstr "Traduce la aplicación..."
 
-#: extension.js:139
+#: extension.js:181
 msgid "Report a bug..."
 msgstr "Informa de un error..."
 
-#: extension.js:142
+#: extension.js:184
 msgid "El atareao"
 msgstr "El atareao"
 
-#: extension.js:144
+#: extension.js:186
 msgid "Follow me in Twitter"
 msgstr "Sígueme en Twitter"
 
-#: extension.js:146
+#: extension.js:188
 msgid "Follow me in Facebook"
 msgstr "Sígueme en Facebook"
 
-#: extension.js:148
+#: extension.js:190
 msgid "Follow me in Google+"
 msgstr "Sígueme en Google+"
 
@@ -90,176 +77,166 @@ msgstr "Cierto"
 msgid "False"
 msgstr "Falso"
 
-#: keybindings.js:170
-msgid "Keyboard Shortcut Unavailable"
-msgstr "Atajo de teclado no disponible"
+#: prefs.js:41
+msgid "ChromeApps"
+msgstr ""
 
-#: keybindings.js:171
-msgid ""
-"The requested keyboard shortcut is already in use and can't be overridden."
-msgstr "El atajo de teclado ya está en uso"
-
-#: prefs.js:40
-msgid "Tounchpad Indicator"
-msgstr "Tounchpad Indicator"
-
-#: prefs.js:45
+#: prefs.js:46
 msgid "Version: "
 msgstr "Versión: "
 
-#: prefs.js:56
+#: prefs.js:57
 msgid "Atareao"
 msgstr "El atareao"
 
-#: prefs.js:63
+#: prefs.js:64
 msgid "Copyright © 2018 Lorenzo Carbonell"
 msgstr "Copyright © 2018 Lorenzo Carbonell"
 
-#: prefs.js:70
-msgid "This program is free software: you can redistribute it and/or modify"
-msgstr ""
-
 #: prefs.js:71
-msgid "it under the terms of the GNU General Public License as published by"
-msgstr ""
+msgid "This program is free software: you can redistribute it and/or modify"
+msgstr "Este programa es software libre: puede redistribuirlo y/o modificarlo"
 
 #: prefs.js:72
-msgid "the Free Software Foundation, either version 3 of the License, or"
+msgid "it under the terms of the GNU General Public License as published by"
 msgstr ""
+"bajo los términos de la Licencia General Pública de GNU publicada por la"
 
 #: prefs.js:73
-msgid "(at your option) any later version."
-msgstr ""
+msgid "the Free Software Foundation, either version 3 of the License, or"
+msgstr "Free Software Foundation, ya sea la versión 3 de la Licencia, o"
 
 #: prefs.js:74
-msgid "This program is distributed in the hope that it will be useful,"
-msgstr ""
+msgid "(at your option) any later version."
+msgstr "(a su elección) cualquier versión posterior."
 
 #: prefs.js:75
-msgid "but WITHOUT ANY WARRANTY; without even the implied warranty of"
-msgstr ""
+msgid "This program is distributed in the hope that it will be useful,"
+msgstr "Este programa se distribuye con la esperanza de que sea útil,"
 
 #: prefs.js:76
-msgid "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
-msgstr ""
+msgid "but WITHOUT ANY WARRANTY; without even the implied warranty of"
+msgstr "pero SIN NINGUNA GARANTÍA; incluso sin la garantía implícita de"
 
 #: prefs.js:77
-msgid "GNU General Public License for more details."
-msgstr ""
+msgid "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
+msgstr "MERCANTIBILIDAD o CALIFICADA PARA UN PROPÓSITO EN PARTICULAR. Vea la"
 
 #: prefs.js:78
-msgid "You should have received a copy of the GNU General Public License"
-msgstr ""
+msgid "GNU General Public License for more details."
+msgstr "Licencia General Pública de GNU para más detalles."
 
 #: prefs.js:79
+msgid "You should have received a copy of the GNU General Public License"
+msgstr ""
+"Usted ha debido de recibir una copia de la Licencia General Pública de GNU"
+
+#: prefs.js:80
 msgid ""
 "along with this program.  If not, see <a href=\"https://www.gnu.org/licenses/"
 "\">https://www.gnu.org/licenses/</a>."
 msgstr ""
+"junto con este programa. Si no, vea <a href=\"https://www.gnu.org/licenses/"
+"\">https://www.gnu.org/licenses/</a>."
 
-#: prefs.js:93
+#: prefs.js:94
 msgid "Preferences"
 msgstr ""
 
-#: prefs.js:97
-msgid "Appearance 1"
+#: prefs.js:98
+msgid "Options"
 msgstr ""
 
-#: prefs.js:110
+#: prefs.js:104
 msgid "About"
 msgstr ""
 
-#: prefs.js:127
-msgid "Message"
-msgstr "Mensaje"
+#, fuzzy
+#~ msgid "Disable Clipman"
+#~ msgstr "Inhabilita el panel táctil"
 
-#: prefs.js:140
-msgid ""
-"Example aims to show how to build well behaved extensions for the Shell and "
-"as such it has little functionality on its own.\n"
-"Nevertheless it’s possible to customize the greeting message."
-msgstr ""
-"Ejemplo que ayuda a mostrar como constuir bien extensiones para el Shell y "
-"sus funcionalidades.\n"
-"Es posible personalizar el mensaje de agradecimiento."
+#, fuzzy
+#~ msgid "Enable Clipman"
+#~ msgstr "Habilita el panel táctil"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:6
-msgid "First time"
-msgstr "Primera vez"
+#~ msgid "Touchpad status"
+#~ msgstr "Estado del panel táctil"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:7
-msgid "The first time the app is executed"
-msgstr ""
+#~ msgid "Touchpad enabled"
+#~ msgstr "Panel táctil activado"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:11
-#: schemas/es.atareao.touchpad-manager.gschema.xml:12
-msgid "Version"
-msgstr "Version"
+#~ msgid "Touchpad disabled"
+#~ msgstr "Panel táctil inhabilitado"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:16
-msgid "On mouse plugged"
-msgstr "En caso de conectar un ratón"
+#~ msgid "Keyboard Shortcut Unavailable"
+#~ msgstr "Atajo de teclado no disponible"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:17
-msgid "Disable the touchpad on mouse plugged"
-msgstr "Deshabilita el panel táctil al conectar un ratón"
+#~ msgid ""
+#~ "The requested keyboard shortcut is already in use and can't be overridden."
+#~ msgstr "El atajo de teclado ya está en uso"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:21
-msgid "Disable on typing"
-msgstr "Deshabilita el panel táctil al escribir"
+#~ msgid "Tounchpad Indicator"
+#~ msgstr "Tounchpad Indicator"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:22
-msgid "Disable the touchpad on typing"
-msgstr "Deshabilita el panel táctil al escribir"
+#~ msgid "Message"
+#~ msgstr "Mensaje"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:26
-msgid "Show notifications when touchpad state changes"
-msgstr "Muestra una notificación al cambiar el estado del touchpad"
+#~ msgid ""
+#~ "Example aims to show how to build well behaved extensions for the Shell "
+#~ "and as such it has little functionality on its own.\n"
+#~ "Nevertheless it’s possible to customize the greeting message."
+#~ msgstr ""
+#~ "Ejemplo que ayuda a mostrar como constuir bien extensiones para el Shell "
+#~ "y sus funcionalidades.\n"
+#~ "Es posible personalizar el mensaje de agradecimiento."
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:27
-msgid "Set false to suppress touchpad change notifications"
-msgstr ""
+#~ msgid "First time"
+#~ msgstr "Primera vez"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:31
-#: schemas/es.atareao.touchpad-manager.gschema.xml:32
-msgid "Natural scrolling"
-msgstr "Desplazamiento natural"
+#~ msgid "Version"
+#~ msgstr "Version"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:36
-msgid "Speed"
-msgstr "Velocidad"
+#~ msgid "On mouse plugged"
+#~ msgstr "En caso de conectar un ratón"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:37
-msgid "Displazament speed"
-msgstr "Velocidad de desplazamiento"
+#~ msgid "Disable the touchpad on mouse plugged"
+#~ msgstr "Deshabilita el panel táctil al conectar un ratón"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:41
-#: schemas/es.atareao.touchpad-manager.gschema.xml:42
-msgid "Tapping"
-msgstr "Al tocar"
+#~ msgid "Disable on typing"
+#~ msgstr "Deshabilita el panel táctil al escribir"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:46
-#: schemas/es.atareao.touchpad-manager.gschema.xml:47
-msgid "Two finger scrolling"
-msgstr "Desplazamiento con dos dedos"
+#~ msgid "Disable the touchpad on typing"
+#~ msgstr "Deshabilita el panel táctil al escribir"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:51
-#: schemas/es.atareao.touchpad-manager.gschema.xml:52
-msgid "Edge scrolling"
-msgstr "Desplazamiento en el borde"
+#~ msgid "Show notifications when touchpad state changes"
+#~ msgstr "Muestra una notificación al cambiar el estado del touchpad"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:56
-#: schemas/es.atareao.touchpad-manager.gschema.xml:57
-msgid "Circular scrolling"
-msgstr "Desplazamiento circular"
+#~ msgid "Natural scrolling"
+#~ msgstr "Desplazamiento natural"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:61
-msgid "Theme"
-msgstr "Tema"
+#~ msgid "Speed"
+#~ msgstr "Velocidad"
 
-#: schemas/es.atareao.touchpad-manager.gschema.xml:62
-msgid "Set the theme"
-msgstr "Elige el tema"
+#~ msgid "Displazament speed"
+#~ msgstr "Velocidad de desplazamiento"
+
+#~ msgid "Tapping"
+#~ msgstr "Al tocar"
+
+#~ msgid "Two finger scrolling"
+#~ msgstr "Desplazamiento con dos dedos"
+
+#~ msgid "Edge scrolling"
+#~ msgstr "Desplazamiento en el borde"
+
+#~ msgid "Circular scrolling"
+#~ msgstr "Desplazamiento circular"
+
+#~ msgid "Theme"
+#~ msgstr "Tema"
+
+#~ msgid "Set the theme"
+#~ msgstr "Elige el tema"
 
 #~ msgid "Message init"
 #~ msgstr "Mensaje inicial"

@@ -6,11 +6,11 @@ const Gio = imports.gi.Gio;
 const Gtk = imports.gi.Gtk;
 
 const ExtensionUtils = imports.misc.extensionUtils;
-const Meta = ExtensionUtils.getCurrentExtension();
-const Convenience = Meta.imports.convenience;
-const PreferencesWidget = Meta.imports.preferenceswidget;
+const Extension = ExtensionUtils.getCurrentExtension();
+const Convenience = Extension.imports.convenience;
+const PreferencesWidget = Extension.imports.preferenceswidget;
 
-const Gettext = imports.gettext.domain(Meta.uuid);
+const Gettext = imports.gettext.domain(Extension.uuid);
 const _ = Gettext.gettext;
 
 
@@ -28,29 +28,32 @@ class AboutWidget extends Gtk.Grid{
             orientation: Gtk.Orientation.VERTICAL
         });
 
+        Gtk.IconTheme.get_default().append_search_path(
+            Extension.dir.get_child('icons').get_path());
+
         let aboutIcon = new Gtk.Image({
-            icon_name: "clipman",
+            icon_name: "chrome",
             pixel_size: 128
         });
         this.add(aboutIcon);
 
         let aboutName = new Gtk.Label({
-            label: "<b>" + _("Clipman") + "</b>",
+            label: "<b>" + _("ChromeApps") + "</b>",
             use_markup: true
         });
         this.add(aboutName);
 
-        let aboutVersion = new Gtk.Label({ label: _('Version: ') + Meta.metadata.version.toString() });
+        let aboutVersion = new Gtk.Label({ label: _('Version: ') + Extension.metadata.version.toString() });
         this.add(aboutVersion);
 
         let aboutDescription = new Gtk.Label({
-            label:  Meta.metadata.description
+            label:  Extension.metadata.description
         });
         this.add(aboutDescription);
 
         let aboutWebsite = new Gtk.Label({
             label: '<a href="%s">%s</a>'.format(
-                Meta.metadata.url,
+                Extension.metadata.url,
                 _("Atareao")
             ),
             use_markup: true
@@ -83,17 +86,17 @@ class AboutWidget extends Gtk.Grid{
     }
 }
 
-class ClipmanPreferencesWidget extends PreferencesWidget.Stack{
+class ChromeAppsPreferencesWidget extends PreferencesWidget.Stack{
     constructor(){
         super();
 
-        let preferencesPage = new PreferencesWidget.Page();
-        this.add_titled(preferencesPage, "preferences", _("Preferences"));
+        //let preferencesPage = new PreferencesWidget.Page();
+        //this.add_titled(preferencesPage, "preferences", _("Preferences"));
 
         var settings = Convenience.getSettings();
         
-        let appearanceSection = preferencesPage.addSection(_("Options"), null, {});
-        appearanceSection.addGSetting(settings, "items");
+        //let appearanceSection = preferencesPage.addSection(_("Options"), null, {});
+        //appearanceSection.addGSetting(settings, "columns");
 
         // About Page
         let aboutPage = this.addPage(
@@ -109,16 +112,16 @@ class ClipmanPreferencesWidget extends PreferencesWidget.Stack{
 }
 
 function buildPrefsWidget() {
-    let clipman = new ClipmanPreferencesWidget();
+    let chromeapps = new ChromeAppsPreferencesWidget();
     GLib.timeout_add(GLib.PRIORITY_DEFAULT, 0, () => {
-        let prefsWindow = clipman.get_toplevel()
-        prefsWindow.get_titlebar().custom_title = clipman.switcher;
+        let prefsWindow = chromeapps.get_toplevel()
+        prefsWindow.get_titlebar().custom_title = chromeapps.switcher;
         prefsWindow.connect("destroy", () => {
-            clipman.daemon.discovering = false;
+            chromeapps.daemon.discovering = false;
         });
         return false;
     });
 
-    clipman.show_all();
-    return clipman;
+    chromeapps.show_all();
+    return chromeapps;
 }

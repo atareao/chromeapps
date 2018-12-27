@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="chromeapps@atareao.es">
+     <schema path="/es/atareao/chromeapps/" id="es.atareao.chromeapps">
+        <key name="columns" type="i">
+            <default>3</default>
+            <summary>Number of columns</summary>
+            <description>Number of columns per tab</description>
+        </key>
+    </schema>
+</schemalist>

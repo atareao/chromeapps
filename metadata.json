@@ -1,11 +1,11 @@
-{"description": "A manager for the touchpad",
- "name": "Clipman",
+{"description": "A menu for Chrome Apps",
+ "name": "Chrome-Apps",
  "shell-version": ["3.26", "3.28"],
- "url": "https://www.atareao.es/aplicacion/clipman",
- "uuid": "clipman@atareao.es",
+ "url": "https://www.atareao.es/aplicacion/chrome-apps-para-gnome-shell",
+ "uuid": "chromeapps@atareao.es",
  "version": 1,
- "gettext-domain": "clipman@atareao.es",
- "settings-schema": "es.atareao.clipman",
+ "gettext-domain": "chromeapps@atareao.es",
+ "settings-schema": "es.atareao.chromeapps",
  "autor": "Lorenzo Carbonell",
  "copyright": "2.018"
 }
