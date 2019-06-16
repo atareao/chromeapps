@@ -1,0 +1,13 @@
+Source: gnome-shell-extension-chromeapps
+Section: gnome
+Priority: optional
+Maintainer: Lorenzo Carbonell Cerezo <lorenzo.carbonell.cerezo@gmail.com>
+Build-Depends: debhelper (>= 11)
+Standards-Version: 4.2.1
+Homepage: http://www.atareao.es
+
+Package: gnome-shell-extension-chromeapps
+Architecture: all
+Depends: ${misc:Depends}, gnome-shell (>= 3.28)
+Description: All your chrome apps in a menu
+ This extension show a menu with all your chrome apps

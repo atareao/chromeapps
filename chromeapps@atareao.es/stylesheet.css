@@ -4,20 +4,20 @@
     margin-left: 30px;
     margin-right: 30px;
 }
-.item{
-    /*border-radius: 32px;*/
-    /*border: 1px solid #2C3030;*/
+.chrome-item{
+    border-radius: 32px;
+    border: 1px solid #2C3030;
     width: 48px;
     height: 48px;
-    padding: 14px;
-    margin: 6px;
+    padding: 4px;
+    margin: 0px;
     /*color: #FFF;*/
     margin-top: 0;
     margin-bottom: 0;
 }
-.item:active {
+.chrome-item:active {
   background-color: #0274d9;
 }
-.item:hover {
+.chrome-item:hover {
   background-color: #3085a9;
 }

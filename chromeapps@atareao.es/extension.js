@@ -39,7 +39,6 @@ imports.gi.versions.Gtk = "3.0";
 imports.gi.versions.Gio = "2.0";
 imports.gi.versions.GLib = "2.0";
 
-
 const _DEBUG_ = true;
 
 /* Import St because is the library that allow you to create UI elements */
@@ -51,6 +50,7 @@ const Gtk = imports.gi.Gtk;
 const Gdk = imports.gi.Gdk;
 const GMenu = imports.gi.GMenu;
 const Gio = imports.gi.Gio;
+const GObject = imports.gi.GObject;
 const GLib = imports.gi.GLib;
 const Cogl = imports.gi.Cogl;
 const Params = imports.misc.params;
@@ -78,10 +78,10 @@ function Log(message){
 function getTimeInSeconds(){
     return Math.round(Date.now() / 1000);
 }
-
+let IconButton = GObject.registerClass(
 class IconButton extends St.Button{
-    constructor(icon_name, icon_size, params){
-        super(params)
+    _init(icon_name, icon_size, params){
+        super.init(params)
         // Icon
         this.icon = new St.Icon({
             icon_name: icon_name,
@@ -90,64 +90,30 @@ class IconButton extends St.Button{
         });
         super.set_child(this.icon);
     }
-}
-
-class ActionsIcons extends St.BoxLayout{
-    constructor(position, on_copy, on_delete){
-        super({vertical: true,
-               y_align: Clutter.ActorAlign.CENTER,
-               x_align: Clutter.ActorAlign.END});
-        
-        let copy_button = new IconButton('clipman-copy', 20);
-        //copy_button.connect('button-press-event', on_copy);
-        this.add(copy_button);
-
-        let remove_button = new IconButton('clipman-remove', 20);
-        this.add(remove_button);
-        //this.set_width(30);
-    }
-}
-
-class PopupMenuTextItem extends PopupMenu.PopupBaseMenuItem{
-    constructor(atext, params){
-        super(params);
-        this.actor.y_align = Clutter.ActorAlign.CENTER;
-
-        let boxLayout = new St.BoxLayout({vertical: false});
-        boxLayout.set_width(200);
-        boxLayout.set_height(80);
-        let text_label = new St.Label({text: atext,
-                                       y_align: Clutter.ActorAlign.CENTER,
-                                       x_align: Clutter.ActorAlign.START});
-
-                                       text_label.set_width(180);
-                                       boxLayout.add(text_label);
-                                       boxLayout.add(new ActionsIcons(1, null, null));
-        
-
-        this.actor.add_child(boxLayout)
-        this._text = atext;
-    }
-}
-
+});
+let ChromeApps = GObject.registerClass (
 class ChromeApps extends PanelMenu.Button{
 
-    constructor(){
-        super(St.Align.START);
+    _init(){
+        super._init(0.0, Extension.metadata.name);
 
         Gtk.IconTheme.get_default().append_search_path(
             Extension.dir.get_child('icons').get_path());
 
-        let box = new St.BoxLayout();
+        let box = new St.BoxLayout({style_class: 'panel-status-menu-box'});
         let label = new St.Label({text: 'Button',
                                    y_expand: true,
                                    y_align: Clutter.ActorAlign.CENTER });
         //box.add(label);
-        this.icon = new St.Icon({icon_name: 'chrome',
+        this.iconStopped = Gio.icon_new_for_string(Extension.path + '/icons/chrome.svg');
+
+		this.icon = new St.Icon({gicon: this.iconStopped,
                                  style_class: 'system-status-icon'});
-        box.add(this.icon);
+        box.add_actor(this.icon);
         //box.add(PopupMenu.arrowIcon(St.Side.BOTTOM));
-        this.actor.add_child(box);
+        this.actor.add_actor(box);
+		this.actor.add_style_class_name('panel-status-button');
+
 
         log('--- init menu start');
         this.settingsMenuItem = new PopupMenu.PopupMenuItem(_("Settings"));
@@ -216,12 +182,13 @@ class ChromeApps extends PanelMenu.Button{
                     Log(ca.app);
                     Log(ca.chromium);
                     let afile = null;
+                    let appfile = Gio.File.new_for_path(ca.app);
                     if(ca.chromium){
                         afile = Gio.File.new_for_path(home + '/.cache/chromium/' + ca.directory + '/Storage/ext/' + ca.app_id);
                     }else{
                         afile = Gio.File.new_for_path(home + '/.config/google-chrome/' + ca.directory + '/Extensions/' + ca.app_id);
                     }
-                    if(afile.query_exists(null)){
+                    if(afile.query_exists(null) && appfile.query_exists(null)){
                         Log('Existe');
                         if(columns == 0){
                             let lineOfButtons = new PopupMenu.PopupBaseMenuItem({
@@ -230,8 +197,9 @@ class ChromeApps extends PanelMenu.Button{
                             this.linesOfButtons.push(lineOfButtons);
                             this.menu.addMenuItem(lineOfButtons)
                         }
-                        let item = this._createChromeAppButton(ca.icon, ca.name);
-                        item.set_style_class_name('item');
+                        //let item = this._createChromeAppButton(ca.icon, ca.name);
+                        let item = new IconButton(ca.icon, 40);
+                        item.set_style_class_name('chrome-item');
                         item.connect('clicked', ()=>{
                             //Util.spawn('/usr/bin/chromium-browser --profile-directory=Default --app-id=cnidaodnidkbaplmghlelgikaiejfhja'.split(' '));
                             Util.spawn([ca.app, '--profile-directory=' + ca.directory, '--app-id=' + ca.app_id]);
@@ -296,16 +264,21 @@ class ChromeApps extends PanelMenu.Button{
         }
         */
     }
+
     _createChromeAppButton(iconName, accessibleName) {
+        let icon = new IconButton(iconName, 48);
+        /*
         let icon = new St.Button({ reactive: true,
                                    can_focus: true,
                                    track_hover: true,
                                    accessible_name: accessibleName,
                                    style_class: 'system-menu-action' });
-        icon.child = new St.Icon({ icon_name: iconName });
+        icon.child = new St.Icon({ icon_name: iconName,
+                                   icon_size: 48 });
+                                   */
         return icon;
     }
-}
+});
 
 var button;
 
