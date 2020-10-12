@@ -1,38 +1,27 @@
 /*
- * Clipman
- * A manager for the Clipboard
+ * chromeapps@atareao.es
  *
- * Copyright (C) 2018
- *     Lorenzo Carbonell <lorenzo.carbonell.cerezo@gmail.com>,
+ * Copyright (c) 2018 Lorenzo Carbonell Cerezo <a.k.a. atareao>
  *
- * This file is part of Clipman.
- * 
- * Clipman is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * Clipman is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
- * You should have received a copy of the GNU General Public License
- * along with gnome-shell-extension-openweather.
- * If not, see <http://www.gnu.org/licenses/>.
- *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
  */
 
-
-/*
-imports.gi.versions.Gio = "2.0";
-imports.gi.versions.GLib = "2.0";
-imports.gi.versions.GObject = "2.0";
-imports.gi.versions.Gtk = "3.0";
-imports.gi.versions.Meta = "1";
-imports.gi.versions.Pango = "1.0";
-imports.gi.versions.Shell = "0.1";
-*/
 imports.gi.versions.St = "1.0";
 imports.gi.versions.Clutter = "1.0";
 imports.gi.versions.Gtk = "3.0";
@@ -44,21 +33,11 @@ const _DEBUG_ = true;
 /* Import St because is the library that allow you to create UI elements */
 const St = imports.gi.St;
 /* Import Clutter because is the library that allow you to layout UI elements */
-const Clutter = imports.gi.Clutter;
-
-const Gtk = imports.gi.Gtk;
-const Gdk = imports.gi.Gdk;
-const GMenu = imports.gi.GMenu;
-const Gio = imports.gi.Gio;
-const GObject = imports.gi.GObject;
-const GLib = imports.gi.GLib;
-const Cogl = imports.gi.Cogl;
-const Params = imports.misc.params;
-
+const {Clutter, Gtk, Gdk, GMenu, Gio, GObject, GLib, Cogl} = imports.gi;
+const Util = imports.misc.util;
 const Main = imports.ui.main;
 const PanelMenu = imports.ui.panelMenu;
 const PopupMenu = imports.ui.popupMenu;
-const Util = imports.misc.util;
 
 const ExtensionUtils = imports.misc.extensionUtils;
 const Extension = ExtensionUtils.getCurrentExtension();
@@ -79,17 +58,17 @@ function getTimeInSeconds(){
     return Math.round(Date.now() / 1000);
 }
 let IconButton = GObject.registerClass(
-class IconButton extends St.Button{
-    _init(icon_name, icon_size, params){
-        super.init(params)
-        // Icon
-        this.icon = new St.Icon({
-            icon_name: icon_name,
-            icon_size: icon_size,
-            style_class: 'clipman-button'
-        });
-        super.set_child(this.icon);
-    }
+    class IconButton extends St.Button{
+        _init(icon_name, icon_size, params){
+            super.init(params)
+            // Icon
+            this.icon = new St.Icon({
+                icon_name: icon_name,
+                icon_size: icon_size,
+                style_class: 'clipman-button'
+            });
+            super.set_child(this.icon);
+        }
 });
 let ChromeApps = GObject.registerClass (
 class ChromeApps extends PanelMenu.Button{
@@ -128,7 +107,8 @@ class ChromeApps extends PanelMenu.Button{
     }
 
     _create_help_menu_item(text, icon_name, url){
-        let menu_item = new PopupMenu.PopupImageMenuItem(text, icon_name);
+        let icon = this._get_icon(icon_name);
+        let menu_item = new PopupMenu.PopupImageMenuItem(text, icon);
         menu_item.connect('activate', () => {
             Gio.app_info_launch_default_for_uri(url, null);
         });
@@ -138,23 +118,42 @@ class ChromeApps extends PanelMenu.Button{
     _get_help(){
         let menu_help = new PopupMenu.PopupSubMenuMenuItem(_('Help'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Project Page'), 'gnome', 'https://gitlab.gnome.org/atareao/cromeapps'));
+            _('Project Page'), 'info', 'https://github.com/atareao/chromeapps/'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Get help online...'), 'help-online', 'https://www.atareao.es/aplicacion/chromeapps/'));
+            _('Get help online...'), 'help', 'https://www.atareao.es/aplicacion/chromeapps/'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Translate this application...'), 'translate', 'https://translations.launchpad.net/cromeapps'));
-        menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Report a issue...'), 'bug', 'https://gitlab.gnome.org/atareao/cromeapps/issues'));
+            _('Report a bug...'), 'bug', 'https://github.com/atareao/chromeapps/issues'));
+
         menu_help.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
+        
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('El atareao'), 'web', 'https://www.atareao.es'));
+            _('El atareao'), 'atareao', 'https://www.atareao.es'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Follow me in Twitter'), 'twitter', 'https://twitter.com/atareao'));
+            _('GitHub'), 'github', 'https://github.com/atareao'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Follow me in Facebook'), 'facebook', 'http://www.facebook.com/elatareao'));
+            _('Twitter'), 'twitter', 'https://twitter.com/atareao'));
         menu_help.menu.addMenuItem(this._create_help_menu_item(
-            _('Follow me in Google+'), 'google', 'https://plus.google.com/118214486317320563625/posts'));
+            _('Telegram'), 'telegram', 'https://t.me/canal_atareao'));
+        menu_help.menu.addMenuItem(this._create_help_menu_item(
+            _('Mastodon'), 'mastodon', 'https://mastodon.social/@atareao'));
+        menu_help.menu.addMenuItem(this._create_help_menu_item(
+            _('Spotify'), 'spotify', 'https://open.spotify.com/show/2v0fC8PyeeUTQDD67I0mKW'));
+        menu_help.menu.addMenuItem(this._create_help_menu_item(
+            _('YouTube'), 'youtube', 'http://youtube.com/c/atareao'));
         return menu_help;
+    }
+
+    _get_icon(icon_name){
+        let base_icon = Extension.path + '/icons/' + icon_name;
+        let file_icon = Gio.File.new_for_path(base_icon + '.png')
+        if(file_icon.query_exists(null) == false){
+            file_icon = Gio.File.new_for_path(base_icon + '.svg')
+        }
+        if(file_icon.query_exists(null) == false){
+            return null;
+        }
+        let icon = Gio.icon_new_for_string(file_icon.get_path());
+        return icon;
     }
 
     _load_chrome_apps(){
@@ -213,69 +212,12 @@ class ChromeApps extends PanelMenu.Button{
                         Log('No existe');
                     }
                 }
-                /*
-                for(let property in child){
-                    if (_DEBUG_) global.log('ZZZ3:'+property);
-                }
-                */
             }
         }
-        
-        
-        /*
-        let docs = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOCUMENTS);
-        let desktop = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DESKTOP);
-        let pics = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PICTURES);
-        let videos = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_VIDEOS);
-        let music = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_MUSIC);
-        let downloads = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_DOWNLOAD);
-        let public_dir = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_PUBLIC_SHARE);
-        let templates = GLib.get_user_special_dir(GLib.UserDirectory.DIRECTORY_TEMPLATES);
-        if (_DEBUG_) global.log('ZZZ4: ' + docs);
-        if (_DEBUG_) global.log('ZZZ4: ' + desktop);
-        if (_DEBUG_) global.log('ZZZ4: ' + pics);
-        if (_DEBUG_) global.log('ZZZ4: ' + videos);
-        if (_DEBUG_) global.log('ZZZ4: ' + music);
-        if (_DEBUG_) global.log('ZZZ4: ' + downloads);
-        if (_DEBUG_) global.log('ZZZ4: ' + public_dir);
-        if (_DEBUG_) global.log('ZZZ4: ' + templates);
-        */
-        //Util.spawn('/usr/bin/chromium-browser --profile-directory=Default --app-id=cnidaodnidkbaplmghlelgikaiejfhja'.split(' '));
-        /*
-        let tree = GMenu.Tree.new_for_path('/home/lorenzo/.local/share/applications/', GMenu.TreeFlags.INCLUDE_NODISPLAY);
-        let tree = new GMenu.Tree({ menu_basename: 'applications.menu' });
-        tree.load_sync();
-        if(_DEBUG_) global.log("ZZZ: "+tree.get_canonical_menu_path());
-        let root = tree.get_root_directory();
-        let iter = root.iter();
-        let nextType;
-        while ((nextType = iter.next()) != GMenu.TreeItemType.INVALID) {
-            if (nextType == GMenu.TreeItemType.DIRECTORY) {
-                let dir = iter.get_directory();
-            }
-            else if (nextType == GMenu.TreeItemType.ENTRY ) {
-                let entry = iter.get_entry();
-                let appinfo = entry.get_app_info();
-                if (_DEBUG_) global.log("ZZZ: ==================");
-                if (_DEBUG_) global.log("ZZZ: "+appinfo.get_generic_name());
-                if (_DEBUG_) global.log("ZZZ: "+appinfo.get_categories());
-                if (_DEBUG_) global.log("ZZZ: "+appinfo.get_filename());
-            }
-        }
-        */
     }
 
     _createChromeAppButton(iconName, accessibleName) {
         let icon = new IconButton(iconName, 48);
-        /*
-        let icon = new St.Button({ reactive: true,
-                                   can_focus: true,
-                                   track_hover: true,
-                                   accessible_name: accessibleName,
-                                   style_class: 'system-menu-action' });
-        icon.child = new St.Icon({ icon_name: iconName,
-                                   icon_size: 48 });
-                                   */
         return icon;
     }
 });

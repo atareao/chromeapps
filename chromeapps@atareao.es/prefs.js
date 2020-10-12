@@ -17,6 +17,25 @@
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/*
+ * chromeapps@atareao.es
+ *
+ * Copyright (c) 2018 Lorenzo Carbonell Cerezo <a.k.a. atareao>
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
@@ -43,11 +62,11 @@ function init() {
 
 var AboutWidget = GObject.registerClass(
     {
-        GTypeName: Extension.uuid + '.AboutWidget'
+        GTypeName: Extension.uuid.replace(/[\W_]+/g, '_') + '_AboutWidget'
     },
     class AboutWidget extends Gtk.Grid{
-        constructor() {
-            super({
+        _init(){
+            super._init({
                 margin_bottom: 18,
                 row_spacing: 8,
                 hexpand: true,
@@ -55,14 +74,12 @@ var AboutWidget = GObject.registerClass(
                 orientation: Gtk.Orientation.VERTICAL
             });
 
-            let aboutIcon = new Gtk.Image({
-                icon_name: "microphone-loopback",
-                pixel_size: 128
-            });
+            let aboutIcon = Gtk.Image.new_from_file(
+                this._get_icon_file('chrome'));
             this.add(aboutIcon);
 
             let aboutName = new Gtk.Label({
-                label: "<b>" + _("ChromeApps") + "</b>",
+                label: "<b>" + _("Chrome Apps") + "</b>",
                 use_markup: true
             });
             this.add(aboutName);
@@ -85,7 +102,7 @@ var AboutWidget = GObject.registerClass(
             this.add(aboutWebsite);
 
             let aboutCopyright = new Gtk.Label({
-                label: "<small>" + _('Copyright © 2018 Lorenzo Carbonell') + "</small>",
+                label: "<small>" + _('Copyright © 2020 Lorenzo Carbonell') + "</small>",
                 use_markup: true
             });
             this.add(aboutCopyright);
@@ -103,19 +120,35 @@ var AboutWidget = GObject.registerClass(
                 use_markup: true,
                 justify: Gtk.Justification.CENTER
             });
-            this.add(aboutLicense);
+        this.add(aboutLicense);
+        }
+        _get_icon_file(icon_name){
+            let base_icon = Extension.path + '/icons/' + icon_name;
+            let file_icon = Gio.File.new_for_path(base_icon + '.png')
+            if(file_icon.query_exists(null) == false){
+                file_icon = Gio.File.new_for_path(base_icon + '.svg')
+            }
+            if(file_icon.query_exists(null) == false){
+                return null;
+            }
+            return file_icon.get_path();
         }
     }
-}
+);
 
 var ChromeAppsPreferencesWidget = GObject.registerClass(
     class ChromeAppsPreferencesWidget extends PreferencesWidget.Stack{
         _init(){
             super._init();
 
-            var settings = Convenience.getSettings();
+            let preferencesPage = new PreferencesWidget.Page();
+            this.add_titled(preferencesPage, "preferences", _("Preferences"));
             
-            // About Page
+            var settings = Convenience.getSettings();
+            let appearanceSection = preferencesPage.addSection(
+                _("Select options"), null, {});
+            appearanceSection.addGSetting(settings, "columns");
+
             let aboutPage = this.addPage(
                 "about",
                 _("About"),
@@ -125,7 +158,7 @@ var ChromeAppsPreferencesWidget = GObject.registerClass(
             aboutPage.box.margin_top = 18;
         }
     }
-}
+);
 
 function buildPrefsWidget() {
     let chromeapps = new ChromeAppsPreferencesWidget();
